@@ -2,10 +2,10 @@
 
 ## Pre-Requisites
 
-Microsoft Entra ID
-Microsoft Intune
-Microsoft Azure Subscription 
-Windows 10 or Windows 11 clients that have undergone a Windows Feature Update through Windows Update for Business (WUfB) or Autopatch
+- Microsoft Entra ID
+- Microsoft Intune
+- Microsoft Azure Subscription 
+- Windows 10 or Windows 11 clients that have undergone a Windows Feature Update through Windows Update for Business (WUfB) or Autopatch
 
 ## Create Log Analytics Workspace
 (Chad to complete)
