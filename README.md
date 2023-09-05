@@ -13,11 +13,29 @@
 ## Deploy Azure Monitor Client Agent
 (Chad to complete)
 
+## Create a Device Group in Microsoft Entra ID
+
+As an Entra ID adminstrator with rights to create new groups, open the Entra ID portal and create a new device group that contains one or more of your Windows devices that have undergone a Feature Update.  
+
 ## Import Script into Intune
 
-Download the PS1 and create a new script deployment in Intune. Create a new group in Microsoft Entra ID that contains devices that have been targeted with a Feature Update. Assign script to group.
+Download the file Get-Win11UpdateUserDowntime.ps1 from this repository.
 
-(Eric to flesh out all of the details)
+Open the Intune portal as an Intune Administrator, or an administrator who has rights to create and deploy Scripts.
+
+In the Intune portal, select **Devices**. In the *Devices* blade, navigate to the *Policy* section and select **Scripts**. In the *Scripts* blade, select the **Add** drop-down and select **Windows 10 and later**:
+
+- Give the script a name in Intune, along with a description and then click **Next**.
+- At the *script location*, browse to the downloaded Get-Win11UpdateUserDowntime.ps1 file.
+- Set *Run this script using the logged on credentials* to **No**.
+- Set *Enforce script signature check* to **No**.
+- Set *Run scripts in 64 bit PowerShell host* to **Yes** and then click **Next**.
+- In the *Included groups* select **Add groups** and then select the device group created earlier in this process. Click **Next**.
+- Confirm the settings and then click **Add**
+
+After the targeted devices query for new scripts to run, the script will be downloaded and executed on the device. This will create a local log file, C:\ProgramData\Microsoft\SetupSummary.log
+
+The Azure Monitor client will detect a new entry has been made to SetupSummary.log and write the data back to your Log Analytics workspace.
 
 ## Log Analytics Kusto Query
 
