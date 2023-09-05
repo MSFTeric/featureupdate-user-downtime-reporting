@@ -1,4 +1,4 @@
-# Solution for retrieving user downtime due to Windows Feature Update restart
+# Retrieve user downtime due to Windows Feature Update restart
 
 ## Pre-Requisites
 
