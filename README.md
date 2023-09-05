@@ -23,8 +23,10 @@ Download the PS1 and create a new script deployment in Intune. Create a new grou
 
 (Add more details, capturing query here):
 
+```
 setupSummary_CL
 | project TimeGenerated, splitValues = split(RawData, ",")
 | project TimeGenerated, Hostname = split(splitValues[1], "=")[1], WindowsVersion = split(splitValues[2], "=")[1], DowntimeBegin = split(splitValues[3], "=")[1], DowntimeEnd = split(splitValues[4], "=")[1], DowntimeTotalMinutes = split(splitValues[5], "=")[1]
+```
 
 Export the results as a .CSV file
