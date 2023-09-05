@@ -9,7 +9,7 @@
 	The values are written to a log file where Azure Monitor or other monitoring agent can pull the values for analysis.
 
 .PARAMETER
-	-i 
+	-interactive 
 		Run in interactive mode
 		
 		Required?					false
@@ -25,7 +25,7 @@
 	
 	To run interactively and report back to the screen as well as the log file, run the following as a local administrator 
 	
-		Get-Win11UpdateUserDowntime.ps1 -i
+		Get-Win11UpdateUserDowntime.ps1 -interactive
 		
 .INPUTS 
 	C:\Windows\Panther\Setupact.log
