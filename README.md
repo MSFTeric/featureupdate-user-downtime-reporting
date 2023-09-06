@@ -21,7 +21,7 @@ As an Entra ID adminstrator with rights to create new groups, open the Entra ID 
 
 Download the file Get-Win11UpdateUserDowntime.ps1 from this repository.
 
-Follow the steps at https://learn.microsoft.com/en-us/mem/intune/apps/intune-management-extension#create-a-script-policy-and-assign-it to create a new script policy, with the following options set:
+Follow the steps at [Microsoft Learn](https://learn.microsoft.com/en-us/mem/intune/apps/intune-management-extension#create-a-script-policy-and-assign-it) to create a new script policy, with the following options set:
 
 - Set *Run this script using the logged on credentials* to **No**
 - Set *Enforce script signature check* to **No**
