@@ -41,7 +41,7 @@ Confirm the Device Status for this script shows success before proceeding into L
 
 ## Log Analytics Kusto Query
 
-Log into your Log Analytics workspace and paste in the following KQL query and run it.
+Log into your Log Analytics workspace, paste in the following KQL query and then select **Run**.
 
 ```
 setupSummary_CL
