@@ -37,9 +37,11 @@ After the targeted devices query for new scripts to run, the script will be down
 
 The Azure Monitor client will detect a new entry has been made to SetupSummary.log and write the data back to your Log Analytics workspace.
 
+Confirm the Device Status for this script shows success before proceeding into Log Analytics.
+
 ## Log Analytics Kusto Query
 
-(Add more details, capturing query here):
+Log into your Log Analytics workspace and paste in the following KQL query and run it.
 
 ```
 setupSummary_CL
@@ -47,4 +49,5 @@ setupSummary_CL
 | project TimeGenerated, Hostname = split(splitValues[1], "=")[1], WindowsVersion = split(splitValues[2], "=")[1], DowntimeBegin = split(splitValues[3], "=")[1], DowntimeEnd = split(splitValues[4], "=")[1], DowntimeTotalMinutes = split(splitValues[5], "=")[1]
 ```
 
-Export the results as a .CSV file
+This will generate the results in a simple table as shown below:
+
