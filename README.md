@@ -5,7 +5,7 @@
 - Microsoft Entra ID
 - Microsoft Intune
 - Microsoft Azure Subscription 
-- Windows 10 or Windows 11 clients that have undergone a Windows Feature Update through Windows Update for Business (WUfB) or Autopatch
+- Windows 11 clients that have undergone a Windows Feature Update through Windows Update for Business (WUfB) or Autopatch
 
 ## Create Log Analytics Workspace
 (Chad to complete)
@@ -15,7 +15,7 @@
 
 ## Create a Device Group in Microsoft Entra ID
 
-As an Entra ID adminstrator with rights to create new groups, open the Entra ID portal and create a new device group that contains one or more of your Windows devices that have undergone a Feature Update.  
+As an Entra ID adminstrator with rights to create new groups, open the Entra ID portal and create a new device group that contains one or more of your Windows devices that have undergone a Windows 11 Feature Update.  
 
 ## Import Script into Intune
 
