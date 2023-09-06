@@ -21,17 +21,12 @@ As an Entra ID adminstrator with rights to create new groups, open the Entra ID 
 
 Download the file Get-Win11UpdateUserDowntime.ps1 from this repository.
 
-Open the Intune portal as an Intune Administrator, or an administrator who has rights to create and deploy Scripts.
+Follow the steps at https://learn.microsoft.com/en-us/mem/intune/apps/intune-management-extension#create-a-script-policy-and-assign-it to create a new script policy, with the following options set:
 
-In the Intune portal, select **Devices**. In the *Devices* blade, navigate to the *Policy* section and select **Scripts**. In the *Scripts* blade, select the **Add** drop-down and select **Windows 10 and later**:
-
-- Give the script a name in Intune, along with a description and then click **Next**.
-- At the *script location*, browse to the downloaded Get-Win11UpdateUserDowntime.ps1 file.
-- Set *Run this script using the logged on credentials* to **No**.
-- Set *Enforce script signature check* to **No**.
-- Set *Run scripts in 64 bit PowerShell host* to **Yes** and then click **Next**.
-- In the *Included groups* select **Add groups** and then select the device group created earlier in this process. Click **Next**.
-- Confirm the settings and then click **Add**
+- Set *Run this script using the logged on credentials* to **No**
+- Set *Enforce script signature check* to **No**
+- Set *Run scripts in 64 bit PowerShell host* to **Yes**
+- In the *Select groups to include* step, select the device group created earlier in this process
 
 After the targeted devices query for new scripts to run, the script will be downloaded and executed on the device. This will create a local log file, C:\ProgramData\Microsoft\SetupSummary.log
 
