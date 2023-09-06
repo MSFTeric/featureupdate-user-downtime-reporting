@@ -51,3 +51,6 @@ setupSummary_CL
 
 This will generate the results in a simple table as shown below:
 
+![Win11UserDowntimeAnalyticsResults](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/f91498ae-dd10-43b6-ab56-6f4d46a9d122)
+
+To export the data, select the **Export -> CSV (displayed columns)** option from the query header.
