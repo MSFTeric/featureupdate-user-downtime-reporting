@@ -34,13 +34,13 @@
 	C:\ProgramData\Microsoft\setupsummary.log 
 	
 DATE
-	2023-09-05
+	2023-09-11
 	
 VERSION
 	1.0
 	
 UPDATES
-	2023-09-05 Initial version of script
+	2023-09-11 Initial version of script
 	
 COPYRIGHT
 	Copyright (c) Microsoft Corporation 2023. All rights reserved.
@@ -222,7 +222,7 @@ if ( -Not (Test-Path $OutLogFile)) {
 
 # Write out data to log for Azure Monitor agent to pick up
 
-write-output "ScriptVersion=$ScriptVersion,Hostname=$DeviceHostname,WindowsVersion=$WindowsVersion,DowntimeBegin=$StartUserDowntime,DowntimeEnd=$EndUserDowntime,DowntimeTotalMinutes=$TotalUserDowntimeInMinutes" | Out-File -FilePath $OutLogFile -Append
+write-output "ScriptVersion=$ScriptVersion,Hostname=$DeviceHostname,WindowsVersion=$WindowsVersion,DowntimeBegin=$StartUserDowntime,DowntimeEnd=$EndUserDowntime,DowntimeTotalMinutes=$TotalUserDowntimeInMinutes" | Out-File -FilePath $OutLogFile -Append -Encoding ASCII
 
 # Write to screen if interactive mode selected
 
