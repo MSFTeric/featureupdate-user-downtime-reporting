@@ -41,7 +41,7 @@ Log into your Log Analytics workspace, paste in the following KQL query and then
 ```
 setupSummary_CL
 | project TimeGenerated, splitValues = split(RawData, ",")
-| project TimeGenerated, Hostname = split(splitValues[1], "=")[1], WindowsVersion = split(splitValues[2], "=")[1], DowntimeBegin = split(splitValues[3], "=")[1], DowntimeEnd = split(splitValues[4], "=")[1], DowntimeTotalMinutes = split(splitValues[5], "=")[1]
+| project TimeGenerated, Hostname = split(splitValues[1], "=")[1], SourceWindowsVersion = split(splitValues[2], "=")[1], WindowsVersion = split(splitValues[3], "=")[1], DowntimeBegin = split(splitValues[4], "=")[1], DowntimeEnd = split(splitValues[5], "=")[1], DowntimeTotalMinutes = split(splitValues[6], "=")[1]
 ```
 
 This will generate the results in a simple table as shown below:
