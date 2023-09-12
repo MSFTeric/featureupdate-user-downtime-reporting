@@ -12,9 +12,9 @@
 	-interactive 
 		Run in interactive mode
 		
-		Required?					false
-		Position?					0
-		Default value				false
+		Required?			false
+		Position?			0
+		Default value			false
 		Accept pipline input? 		false 
 		Accept wildcard characters?	False
 		
@@ -34,14 +34,15 @@
 	C:\ProgramData\Microsoft\setupsummary.log 
 	
 DATE
-	2023-09-11
+	2023-09-12
 	
 VERSION
-	1.0
+	2.0
 	
 UPDATES
-	2023-09-11 Initial version of script
-	
+	2023-09-05 Initial version of script
+	2023-09-12 Updated to include source OS version, ensure log file written in ASCDATE
+
 COPYRIGHT
 	Copyright (c) Microsoft Corporation 2023. All rights reserved.
 #>
@@ -147,6 +148,35 @@ function Retrieve-UserDowntimeStopDatetime() {
 	
 } #End Retrieve-UserDowntimeStopDatetime
 
+function Retrieve-SourceOSVersion() {
+	 <#
+		.SYNOPSIS
+			.Function to return the line in setupact.log that contains the start suspended services date/time stamp
+
+		.DESCRIPTION
+			Returns the date/time value
+	#>
+	
+	param ([Parameter(Mandatory=$true)]$Log)
+	
+	$SourceWindowsOSVersion = $null
+	
+	$SourceWindowsOSVersionText = "Target OS: Detected Source Version ="
+
+    # Return the source OS version, it should be the first instance of the string pattern in the log
+
+	$SourceWindowsOSVersion = (Get-Content $Log | Select-String -Pattern $SourceWindowsOSVersionText).Line.Split("=")[1].Split("[")[1].Split("]")[0]
+
+    if ($SourceWindowsOSVersion -eq "" -or $SourceWindowsOSVersion -eq $null) {
+        # Need to exit now, a bad value was returned
+        Exit 1
+    }
+
+    # Return the value
+	
+	return $SourceWindowsOSVersion
+	
+} #End Retrieve-SourceOSVersion
 
 ##########################################
 #                                        #
@@ -185,6 +215,10 @@ $SetupLog = "C:\Windows\panther\setupact.log"
 
 if (Test-Path $SetupLog) {
 
+    # Calculate the source operating system (prior to upgrade)
+	
+    $SourceOSVersion = Retrieve-SourceOSVersion($SetupLog)
+
     # Calculate user downtime
      
     $StartUserDowntime = Retrieve-UserDowntimeStartDateTime($SetupLog)
@@ -222,12 +256,12 @@ if ( -Not (Test-Path $OutLogFile)) {
 
 # Write out data to log for Azure Monitor agent to pick up
 
-write-output "ScriptVersion=$ScriptVersion,Hostname=$DeviceHostname,WindowsVersion=$WindowsVersion,DowntimeBegin=$StartUserDowntime,DowntimeEnd=$EndUserDowntime,DowntimeTotalMinutes=$TotalUserDowntimeInMinutes" | Out-File -FilePath $OutLogFile -Append -Encoding ASCII
+write-output "ScriptVersion=$ScriptVersion,Hostname=$DeviceHostname,SourceWindowsVersion=$SourceOSVersion,UpgradedWindowsVersion=$WindowsVersion,DowntimeBegin=$StartUserDowntime,DowntimeEnd=$EndUserDowntime,DowntimeTotalMinutes=$TotalUserDowntimeInMinutes" | Out-File -FilePath $OutLogFile -Append -Encoding ascii
 
 # Write to screen if interactive mode selected
 
 if ($PSBoundParameters.ContainsKey('Interactive')) {
-	write-host "ScriptVersion=$ScriptVersion,Hostname=$DeviceHostname,WindowsVersion=$WindowsVersion,DowntimeBegin=$StartUserDowntime,DowntimeEnd=$EndUserDowntime,DowntimeTotalMinutes=$TotalUserDowntimeInMinutes" -ForegroundColor Yellow
+	write-host "ScriptVersion=$ScriptVersion,Hostname=$DeviceHostname,SourceWindowsVersion=$SourceOSVersion,UpgradedWindowsVersion=$WindowsVersion,DowntimeBegin=$StartUserDowntime,DowntimeEnd=$EndUserDowntime,DowntimeTotalMinutes=$TotalUserDowntimeInMinutes" -ForegroundColor Yellow
 }
 
 # End Script without error
