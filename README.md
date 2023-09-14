@@ -10,6 +10,8 @@
 ## Create Log Analytics Workspace
 Follow the steps at [Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/quick-create-workspace?tabs=azure-portal) to create a Log Analytics workspace in your tenant.
 
+Note the *Region* and the *Name* of your Log Analytics workspace. You will need these details for your data collection rules.
+
 ## Deploy Azure Monitor Client Agent
 (Chad to complete)
 
