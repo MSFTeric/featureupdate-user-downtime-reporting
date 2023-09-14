@@ -38,11 +38,13 @@ Select **Create** to create a new data collection rule and associations.
 
 ## Create a Device Group in Microsoft Entra ID
 
-As an Entra ID adminstrator with rights to create new groups, open the Entra ID portal and create a new device group that contains one or more of your Windows devices that have undergone a Windows 11 Feature Update.  
+As an Entra ID adminstrator with rights to create new groups, open the Entra ID portal and create a **new device group** that contains one or more of your Windows devices that have undergone a Windows 11 Feature Update. 
+
+Optionally, you can create a dynamic device group based upon Windows 11 devices.
 
 ## Create and Deploy Intune Script Policy
 
-Download the file Get-Win11UpdateUserDowntime.ps1 from this repository.
+**Download** the file **Get-Win11UpdateUserDowntime.ps1** from this repository.
 
 Follow the steps at [Microsoft Learn](https://learn.microsoft.com/en-us/mem/intune/apps/intune-management-extension#create-a-script-policy-and-assign-it) to create a new Intune script policy, with the following options set:
 
