@@ -23,7 +23,7 @@ Select **Create** to create a new data collection rule and associations.
 
 * Name the Rule **setupSummary.log**
 * Specify the correct **Azure subscription**, **Resource Group**, and **Region**
-  *Remember, the data collection rule must be in the same region as your Log Analytics workspace*
+*    *Remember, the data collection rule must be in the same region as your Log Analytics workspace*
 * Select the Platform Type **Windows**
 * On the **Resources** tab, add your machines...CHECK WITH CHAD ON THIS WHEN IT COMES TO PHYSICAL MACHINES
 * On the **Collect and deliver** tab, select **Add data source** to add a data source and destination
