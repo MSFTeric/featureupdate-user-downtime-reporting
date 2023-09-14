@@ -34,7 +34,9 @@ The Azure Monitor client will detect a new entry has been made to SetupSummary.l
 
 Confirm the Device Status for this script shows success before proceeding into Log Analytics.
 
-## Log Analytics Kusto Query
+## Log Analytics Kusto Queries
+
+### Table view of user downtime
 
 Log into your Log Analytics workspace, paste in the following KQL query and then select **Run**.
 
@@ -43,9 +45,36 @@ setupSummary_CL
 | project TimeGenerated, splitValues = split(RawData, ",")
 | project TimeGenerated, Hostname = split(splitValues[1], "=")[1], SourceWindowsVersion = split(splitValues[2], "=")[1], WindowsVersion = split(splitValues[3], "=")[1], DowntimeBegin = split(splitValues[4], "=")[1], DowntimeEnd = split(splitValues[5], "=")[1], DowntimeTotalMinutes = split(splitValues[6], "=")[1]
 ```
-
-This will generate the results in a simple table as shown below:
-
-![Win11UserDowntimeAnalyticsResults](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/f91498ae-dd10-43b6-ab56-6f4d46a9d122)
-
+This will generate the results in a  table as shown below:
+![image](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/2b83b3d5-2b21-4ef3-a288-0a06acdbafb3)
 To export the data, select the **Export -> CSV (displayed columns)** option from the query header.
+
+### Column chart of average downtime based on target OS version
+
+Log into your Log Analytics workspace, paste in the following KQL query and then select **Run**
+
+```
+setupSummary_CL
+| project TimeGenerated, splitValues = split(RawData, ",")
+| project TimeGenerated, Hostname = split(splitValues[1], "=")[1], SourceWindowsVersion = tostring(split(splitValues[2], "=")[1]), WindowsVersion = tostring(split(splitValues[3], "=")[1]), DowntimeBegin = split(splitValues[4], "=")[1], DowntimeEnd = split(splitValues[5], "=")[1], DowntimeTotalMinutes = todouble(split(splitValues[6], "=")[1])
+| summarize avg(DowntimeTotalMinutes) by WindowsVersion
+| render columnchart
+```
+This will generate a column chart similar to the image below:
+![image](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/24c90b83-bc4d-495b-b87b-4dfbb77d10a8)
+
+
+### Bar chart of downtime for each device
+
+Log into your Log Analytics workspace, paste in the following KQL query and then select **Run**
+
+```
+setupSummary_CL
+| project TimeGenerated, splitValues = split(RawData, ",")
+| project TimeGenerated, Hostname = tostring(split(splitValues[1], "=")[1]), SourceWindowsVersion = tostring(split(splitValues[2], "=")[1]), WindowsVersion = split(splitValues[3], "=")[1], DowntimeBegin = split(splitValues[4], "=")[1], DowntimeEnd = split(splitValues[5], "=")[1], DowntimeTotalMinutes = todouble(split(splitValues[6], "=")[1])
+| summarize avg(DowntimeTotalMinutes) by Hostname
+| render barchart
+```
+This will generate a bar chart similar to the image below:
+![image](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/cdf44229-303d-43ca-9a82-3b9c0f6d74fe)
+
