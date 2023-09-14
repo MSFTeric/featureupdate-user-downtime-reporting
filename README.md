@@ -61,6 +61,18 @@ The Azure Monitor client will detect a new entry has been made to SetupSummary.l
 
 Confirm the Device Status for this script shows success before proceeding into Log Analytics.
 
+## What data is collected?
+
+The script will execute on a Windows 11 device and parse the setupact.log file generated during an upgrade from Windows 10 to Windows 11. The script will then log the following information, in a single line, into C:\ProgramData\Microsoft\Setupsummary.log:
+
+* The script version number. This allows you to deploy updated versions of the script and know which data set you are working with.
+* The device hostname.
+* The source Windows version (very likely a Windows 10 version number)
+* The upgraded Windows version (a Windows 11 version number)
+* The date and time the restart began in order to apply the update
+* The data and time the restart completed after applying the update
+* The elapsed time in minutes between the reboot's start time and end time 
+
 ## Log Analytics Kusto Queries
 
 ### Table view of user downtime
