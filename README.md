@@ -8,10 +8,33 @@
 - Windows 11 clients that have undergone a Windows Feature Update through Windows Update for Business (WUfB) or Autopatch
 
 ## Create Log Analytics Workspace
-(Chad to complete)
+Follow the steps at [Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/quick-create-workspace?tabs=azure-portal) to create a Log Analytics workspace in your tenant.
 
 ## Deploy Azure Monitor Client Agent
 (Chad to complete)
+
+## Configure Azure Monitor Data Collection Rules
+
+In order to collect data from your devices, you will need to configure a data collection rule. You must create the data collection rule in the *same region* as your Log Analytics workspace. 
+
+To configure the Data Collection Rule, navigate to the Azure portal and open the **Monitor** menu. Under *Settings* select **Data Collection Rules** 
+
+Select **Create** to create a new data collection rule and associations.
+
+* Name the Rule **setupSummary.log**
+* Specify the correct **Azure subscription**, **Resource Group**, and **Region**
+  *Remember, the data collection rule must be in the same region as your Log Analytics workspace*
+* Select the Platform Type **Windows**
+* On the **Resources** tab, add your machines...CHECK WITH CHAD ON THIS WHEN IT COMES TO PHYSICAL MACHINES
+* On the **Collect and deliver** tab, select **Add data source** to add a data source and destination
+* Select the *Data Source type* **Custom Text Logs**
+* Select the *File Pattern* **C:\ProgramData\Microsoft\setupsummarylog**
+* Select the table name **setupSummary_CL**
+* The record delimiter should default to **End-of-Line**
+* Set the *Transform* to **source**
+* On the **Destination* tab, add the *Destination Type* **Azure Monitor Logs** and then select the appropriate **Subscription** and the **Log Analytics workspace** created at the beginning of this process.
+* Review your details and then select **Create** to create your data collection rule.
+
 
 ## Create a Device Group in Microsoft Entra ID
 
