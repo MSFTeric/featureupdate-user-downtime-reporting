@@ -1,5 +1,9 @@
 # Retrieve user downtime due to Windows Feature Update restart
 
+## Purpose
+
+This solution will use an Intune-delivered PowerShell script to capture the amount of user downtime experienced on a device due to the restart to update a device to Windows 11. This data is then collected into Log Analytics where it can be analyzed by IT Admins to understand expected average downtime for end users. This information can be used as part of end user communications during a Windows 11 production rollout (e.g. "When you select to restart your device, you can expect an average of 35 minutes for the process to complete and return you to the logon screen.")
+
 ## Pre-Requisites
 
 - Microsoft Entra ID
