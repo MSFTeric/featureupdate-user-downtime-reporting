@@ -41,7 +41,7 @@ VERSION
 	
 UPDATES
 	2023-09-05 Initial version of script
-	2023-09-12 Updated to include source OS version, ensure log file written in ASCDATE
+	2023-09-12 Updated to include source OS version, ensure log file written in ASCII
 
 COPYRIGHT
 	Copyright (c) Microsoft Corporation 2023. All rights reserved.
