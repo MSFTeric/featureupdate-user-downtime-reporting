@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This solution will use an Intune-delivered PowerShell script to capture the amount of user downtime experienced on a device due to the restart to update a device to Windows 11. This data is then collected into Log Analytics where it can be analyzed by IT Admins to understand expected average downtime for end users. This information can be used as part of end user communications during a Windows 11 production rollout (e.g. "When you select to restart your device, you can expect an average of 35 minutes for the process to complete and return you to the logon screen.")
+This solution uses an Intune-delivered PowerShell script to capture the amount of user downtime experienced on a device due to the restart to update a device to Windows 11. This data is then collected into Log Analytics where it can be analyzed by IT Admins to understand expected average downtime for end users. This information can be used as part of end user communications during a Windows 11 production rollout (e.g. "When you select to restart your device, you can expect an average of 35 minutes for the process to complete and return you to the logon screen.")
 
 ## Pre-Requisites
 
@@ -59,11 +59,11 @@ Follow the steps at [Microsoft Learn](https://learn.microsoft.com/en-us/mem/intu
 - Set *Run scripts in 64 bit PowerShell host* to **Yes**
 - In the *Select groups to include* step, select the device group created earlier in this process
 
-After the targeted devices query for new scripts to run, the script will be downloaded and executed on the device. This will create a local log file, C:\ProgramData\Microsoft\SetupSummary.log
+After the targeted devices query for new scripts to run, the script will be downloaded and executed. This will create a local log file, C:\ProgramData\Microsoft\SetupSummary.log, on each device.
 
 The Azure Monitor client will detect a new entry has been made to SetupSummary.log and write the data back to your Log Analytics workspace.
 
-Confirm the Device Status for this script shows success before proceeding into Log Analytics.
+Confirm the Device Status for this script shows **success** in the Intune portal before proceeding into Log Analytics.
 
 ## What data is collected?
 
@@ -81,7 +81,7 @@ The script will execute on a Windows 11 device and parse the setupact.log file g
 
 ### Table view of user downtime
 
-Log into your Log Analytics workspace, paste in the following KQL query and then select **Run**.
+Log into your Log Analytics workspace, **paste** in the following KQL query and then select **Run**.
 
 ```
 setupSummary_CL
@@ -94,7 +94,7 @@ To export the data, select the **Export -> CSV (displayed columns)** option from
 
 ### Column chart of average downtime based on target OS version
 
-Log into your Log Analytics workspace, paste in the following KQL query and then select **Run**
+Log into your Log Analytics workspace, **paste** in the following KQL query and then select **Run**
 
 ```
 setupSummary_CL
@@ -109,7 +109,7 @@ This will generate a column chart similar to the image below:
 
 ### Bar chart of downtime for each device
 
-Log into your Log Analytics workspace, paste in the following KQL query and then select **Run**
+Log into your Log Analytics workspace, **paste** in the following KQL query and then select **Run**
 
 ```
 setupSummary_CL
