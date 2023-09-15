@@ -151,7 +151,7 @@ function Retrieve-UserDowntimeStopDatetime() {
 function Retrieve-SourceOSVersion() {
 	 <#
 		.SYNOPSIS
-			.Function to return the line in setupact.log that contains the start suspended services date/time stamp
+			Function to return the line in setupact.log that contains the start suspended services date/time stamp
 
 		.DESCRIPTION
 			Returns the date/time value
@@ -174,7 +174,7 @@ function Retrieve-SourceOSVersion() {
 
     # Return the value
 	
-	return $SourceWindowsOSVersion
+    return $SourceWindowsOSVersion
 	
 } #End Retrieve-SourceOSVersion
 
