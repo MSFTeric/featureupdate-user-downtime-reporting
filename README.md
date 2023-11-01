@@ -17,7 +17,10 @@ Follow the steps at [Microsoft Learn](https://learn.microsoft.com/en-us/azure/az
 Note the *Region* and the *Name* of your Log Analytics workspace. You will need these details for your data collection rules.
 
 ## Deploy Azure Monitor Client Agent
-(Chad to complete)
+The Azure Monitor can be installed on both Azure virtual machines, such as Azure Virtual Desktop personal hosts, or on physical Windows clients.
+
+* Azure virtual machine - The best and easiest way to deploy the agent to an Azure VM is to use the virtual machine extension. That process is outlined in detail [here](https://learn.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-manage?tabs=azure-portal#virtual-machine-extension-details)
+* Physical Windows client - The Azure Monitor agent is installed via an MSI installer on physical devices. This is outlined [here](https://learn.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-windows-client). The MSI can be deployed using traditional app deployment tools such as Intune.
 
 ## Configure Azure Monitor Data Collection Rules
 
@@ -31,7 +34,9 @@ Select **Create** to create a new data collection rule and associations.
 * Specify the correct **Azure subscription**, **Resource Group**, and **Region**
 *    *Remember, the data collection rule must be in the same region as your Log Analytics workspace*
 * Select the Platform Type **Windows**
-* On the **Resources** tab, add your machines...CHECK WITH CHAD ON THIS WHEN IT COMES TO PHYSICAL MACHINES
+* On the **Resources** tab, add your machines
+> {!NOTE}
+> Physical clients need to have a monitored object created for the data collection rule. This process is documented [here](https://learn.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-windows-client#create-and-associate-a-monitored-object)
 * On the **Collect and deliver** tab, select **Add data source** to add a data source and destination
 * Select the *Data Source type* **Custom Text Logs**
 * Select the *File Pattern* **C:\ProgramData\Microsoft\setupsummarylog**
@@ -40,7 +45,6 @@ Select **Create** to create a new data collection rule and associations.
 * Set the *Transform* to **source**
 * On the **Destination* tab, add the *Destination Type* **Azure Monitor Logs** and then select the appropriate **Subscription** and the **Log Analytics workspace** created at the beginning of this process.
 * Review your details and then select **Create** to create your data collection rule.
-
 
 ## Create a Device Group in Microsoft Entra ID
 
