@@ -35,7 +35,7 @@ Select **Create** to create a new data collection rule and associations.
 *    *Remember, the data collection rule must be in the same region as your Log Analytics workspace*
 * Select the Platform Type **Windows**
 * On the **Resources** tab, add your machines
-> {!NOTE}
+> [!NOTE]
 > Physical clients need to have a monitored object created for the data collection rule. This process is documented [here](https://learn.microsoft.com/en-us/azure/azure-monitor/agents/azure-monitor-agent-windows-client#create-and-associate-a-monitored-object)
 * On the **Collect and deliver** tab, select **Add data source** to add a data source and destination
 * Select the *Data Source type* **Custom Text Logs**
