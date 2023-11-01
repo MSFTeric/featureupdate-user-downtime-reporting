@@ -94,7 +94,9 @@ setupSummary_CL
 | project TimeGenerated, Hostname = split(splitValues[1], "=")[1], SourceWindowsVersion = split(splitValues[2], "=")[1], WindowsVersion = split(splitValues[3], "=")[1], DowntimeBegin = split(splitValues[4], "=")[1], DowntimeEnd = split(splitValues[5], "=")[1], DowntimeTotalMinutes = split(splitValues[6], "=")[1]
 ```
 This will generate the results in a  table as shown below:
-![image](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/2b83b3d5-2b21-4ef3-a288-0a06acdbafb3)
+<img width="1141" alt="Screenshot 2023-09-14 151901" src="https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/97fabf1a-3dd5-4545-8be1-ef5967bdcbfb">
+
+
 To export the data, select the **Export -> CSV (displayed columns)** option from the query header.
 
 ### Column chart of average downtime based on target OS version
@@ -109,7 +111,8 @@ setupSummary_CL
 | render columnchart
 ```
 This will generate a column chart similar to the image below:
-![image](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/24c90b83-bc4d-495b-b87b-4dfbb77d10a8)
+
+<img width="1334" alt="Screenshot 2023-09-14 151802" src="https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/864c91b0-9dcb-4776-9191-d35a454f3576">
 
 
 ### Bar chart of downtime for each device
@@ -125,8 +128,8 @@ setupSummary_CL
 ```
 
 This will generate a bar chart similar to the image below:
-![image](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/cdf44229-303d-43ca-9a82-3b9c0f6d74fe)
 
+<img width="1421" alt="Screenshot 2023-09-14 151641" src="https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/d7faf436-8f6e-4234-a198-73b489670012">
 
 ### Optional: Run Script Interactively
 
