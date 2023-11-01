@@ -4,6 +4,7 @@
 
 This solution uses an Intune-delivered PowerShell script to capture the amount of user downtime experienced on a device due to the restart to update a device to Windows 11. This data is then collected into Log Analytics where it can be analyzed by IT Admins to understand expected average downtime for end users. This information can be used as part of end user communications during a Windows 11 production rollout (e.g. "When you select to restart your device, you can expect an average of 35 minutes for the process to complete and return you to the logon screen.")
 
+The script can be run interactively on a Windows 11 device if an Administrator has access to the device and just wants to review the associated downtime. This is covered in the section "**Optional: Run Script Interactively**" below.
 ## Pre-Requisites
 
 - Microsoft Entra ID
@@ -122,6 +123,17 @@ setupSummary_CL
 | summarize avg(DowntimeTotalMinutes) by Hostname
 | render barchart
 ```
+
 This will generate a bar chart similar to the image below:
 ![image](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/cdf44229-303d-43ca-9a82-3b9c0f6d74fe)
 
+
+### Optional: Optional: Run Script Interactively
+
+If you are an IT Pro and need to test/run this script on a device that you have access to, simply follow these steps:
+
+* **Download** the file **Get-Win11UpdateUserDowntime.ps1** from this repository to the local device
+* Right-click the script file and select *Properties*. If you see the option to Unblock the file, do so (otherwise script execution will be halted)
+* Open an Administrative command Prompt
+* Run **Powershell.exe -ExecutionPolicy Bypass -File Get-Win11UpdateUserDowntime.ps1 -Interactive**
+* The script will execute interactively with some output to the screen. When it's complete the file C:\ProgramData\Microsoft\setupsummary.log will be created.
