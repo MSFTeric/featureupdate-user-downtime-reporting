@@ -128,7 +128,7 @@ This will generate a bar chart similar to the image below:
 ![image](https://github.com/MSFTeric/featureupdate-user-downtime-reporting/assets/44607393/cdf44229-303d-43ca-9a82-3b9c0f6d74fe)
 
 
-### Optional: Optional: Run Script Interactively
+### Optional: Run Script Interactively
 
 If you are an IT Pro and need to test/run this script on a device that you have access to, simply follow these steps:
 
