@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This solution uses an Intune-delivered PowerShell script to capture the amount of user downtime experienced on a device due to the restart to update a device to Windows 11. This data is then collected into Log Analytics where it can be analyzed by IT Admins to understand expected average downtime for end users. This information can be used as part of end user communications during a Windows 11 production rollout (e.g. "When you select to restart your device, you can expect an average of 35 minutes for the process to complete and return you to the logon screen.")
+This solution uses an Intune-delivered PowerShell script to capture the amount of user downtime experienced on a device due to the restart to update a device from Windows 10 to Windows 11. This data is then collected into Log Analytics where it can be analyzed by IT Admins to understand expected average downtime for end users. This information can be used as part of end user communications during a Windows 11 production rollout (e.g. "When you select to restart your device, you can expect an average of 35 minutes for the process to complete and return you to the logon screen.")
 
 The script can be run interactively on a Windows 11 device if an Administrator has access to the device and just wants to review the associated downtime. This is covered in the section [**Optional: Run Script Interactively**](https://github.com/MSFTeric/featureupdate-user-downtime-reporting#optional-run-script-interactively) below.
 ## Pre-Requisites
@@ -10,7 +10,7 @@ The script can be run interactively on a Windows 11 device if an Administrator h
 - Microsoft Entra ID
 - Microsoft Intune
 - Microsoft Azure Subscription 
-- Windows 11 clients that have undergone a Windows Feature Update through Windows Update for Business (WUfB) or Autopatch
+- Windows 11 clients that have undergone a Windows Feature Update from Windows 10 using Windows Update for Business (WUfB) or Autopatch
 
 ## Create Log Analytics Workspace
 Follow the steps at [Microsoft Learn](https://learn.microsoft.com/en-us/azure/azure-monitor/logs/quick-create-workspace?tabs=azure-portal) to create a Log Analytics workspace in your tenant.
