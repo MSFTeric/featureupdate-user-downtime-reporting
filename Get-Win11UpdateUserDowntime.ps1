@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
 	This script determines the user downtime based on Windows 11 update restart time.
 
@@ -12,9 +12,9 @@
 	-interactive 
 		Run in interactive mode
 		
-		Required?			false
-		Position?			0
-		Default value			false
+		Required?					false
+		Position?					0
+		Default value				false
 		Accept pipline input? 		false 
 		Accept wildcard characters?	False
 		
@@ -34,13 +34,14 @@
 	C:\ProgramData\Microsoft\setupsummary.log 
 	
 DATE
-	2023-11-01
+	2023-12-13
 	
 VERSION
-	1.0
+	1.0.1
 	
 UPDATES
 	2023-11-01 Initial release to Github
+	2023-12-13 Remove the setupsummary.log if it already exists so it's always created new. Fixed verbs to align to Pshell best practices.
 
 COPYRIGHT
 	Copyright (c) Microsoft Corporation 2023. All rights reserved.
@@ -81,7 +82,7 @@ function Get-IsElevated {
 
 
 
-function Retrieve-UserDowntimeStartDateTime() {
+function Get-UserDowntimeStartDateTime() {
 	 <#
 		.SYNOPSIS
 			.Function to return the line in setupact.log that contains the finalize critical boundary date/time stamp
@@ -100,7 +101,7 @@ function Retrieve-UserDowntimeStartDateTime() {
 
 	$FinalizeCriticalBoundaryStartTime = (Get-Content $Log | Select-String -Pattern $FinalizeCriticalBoundaryText | Select-Object -Last 1).Line.Split("|")[3]
 
-    if ($FinalizeCriticalBoundaryStartTime -eq "" -or $FinalizeCriticalBoundarySTartTime -eq $null) {
+    if ($FinalizeCriticalBoundaryStartTime -eq "" -or $null -eq $FinalizeCriticalBoundarySTartTime) {
         # Need to exit now, a bad value was returned
         exit 1
     }
@@ -111,11 +112,11 @@ function Retrieve-UserDowntimeStartDateTime() {
 	
 	return $DowntimeStart
 		
-} #end Retrieve-UserDowntimeStartDateTime
+} #end Get-UserDowntimeStartDateTime
 
 
 
-function Retrieve-UserDowntimeStopDatetime() {
+function Get-UserDowntimeStopDatetime() {
 	 <#
 		.SYNOPSIS
 			.Function to return the line in setupact.log that contains the start suspended services date/time stamp
@@ -134,7 +135,7 @@ function Retrieve-UserDowntimeStopDatetime() {
 
 	$StartSuspendedServicesEndTime = (Get-Content $Log | Select-String -Pattern $StartSuspendedServicesText | Select-Object -Last 2).Line.Split("|")[4]
 
-    if ($StartSuspendedServicesEndTime -eq "" -or $StartSuspendedServicesEndTime -eq $null) {
+    if ($StartSuspendedServicesEndTime -eq "" -or $null -eq $StartSuspendedServicesEndTime) {
         # Need to exit now, a bad value was returned
         Exit 1
     }
@@ -145,9 +146,9 @@ function Retrieve-UserDowntimeStopDatetime() {
 	
 	return $DowntimeEnd
 	
-} #End Retrieve-UserDowntimeStopDatetime
+} #End Get-UserDowntimeStopDatetime
 
-function Retrieve-SourceOSVersion() {
+function Get-SourceOSVersion() {
 	 <#
 		.SYNOPSIS
 			Function to return the line in setupact.log that contains the start suspended services date/time stamp
@@ -166,7 +167,7 @@ function Retrieve-SourceOSVersion() {
 
 	$SourceWindowsOSVersion = (Get-Content $Log | Select-String -Pattern $SourceWindowsOSVersionText).Line.Split("=")[1].Split("[")[1].Split("]")[0]
 
-    if ($SourceWindowsOSVersion -eq "" -or $SourceWindowsOSVersion -eq $null) {
+    if ($SourceWindowsOSVersion -eq "" -or $null -eq $SourceWindowsOSVersion) {
         # Need to exit now, a bad value was returned
         Exit 1
     }
@@ -175,7 +176,7 @@ function Retrieve-SourceOSVersion() {
 	
     return $SourceWindowsOSVersion
 	
-} #End Retrieve-SourceOSVersion
+} #End Get-SourceOSVersion
 
 ##########################################
 #                                        #
@@ -195,7 +196,7 @@ if ($PSBoundParameters.ContainsKey('Interactive')) {
 
 # Set script version as a variable
 
-$ScriptVersion = "1.0"
+$ScriptVersion = "1.0.1"
 
 # Verify script is running on Windows 11 before proceeding
 
@@ -216,13 +217,13 @@ if (Test-Path $SetupLog) {
 
     # Calculate the source operating system (prior to upgrade)
 	
-    $SourceOSVersion = Retrieve-SourceOSVersion($SetupLog)
+    $SourceOSVersion = Get-SourceOSVersion($SetupLog)
 
     # Calculate user downtime
      
-    $StartUserDowntime = Retrieve-UserDowntimeStartDateTime($SetupLog)
+    $StartUserDowntime = Get-UserDowntimeStartDateTime($SetupLog)
 	
-	$EndUserDowntime = Retrieve-UserDowntimeStopDatetime($SetupLog)
+	$EndUserDowntime = Get-UserDowntimeStopDatetime($SetupLog)
 
     $TotalUserDowntimeRaw = New-TimeSpan $StartUserDowntime $EndUserDowntime
 	
@@ -248,6 +249,16 @@ if ( -Not (Test-Path $OutputFolder)) {
 # Verify Output Log File exists
 
 $OutLogFile = "$OutputFolder\setupsummary.log"
+
+# Delete file if it exists and recreate it
+
+if (Test-Path $OutLogFile) {
+	Remove-Item $OutLogFile
+	start-sleep -Seconds 1
+	New-Item -ItemType file -Path $OutLogFile -Force | Out-Null
+}
+
+# If file never existed, create it
 
 if ( -Not (Test-Path $OutLogFile)) {
     New-Item -ItemType file -Path $OutLogFile -Force | Out-Null
