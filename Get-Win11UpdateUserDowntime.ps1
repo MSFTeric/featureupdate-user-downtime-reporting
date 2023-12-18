@@ -34,14 +34,15 @@
 	C:\ProgramData\Microsoft\setupsummary.log 
 	
 DATE
-	2023-12-13
+	2023-12-18
 	
 VERSION
-	1.0.1
+	1.0.2
 	
 UPDATES
 	2023-11-01 Initial release to Github
 	2023-12-13 Remove the setupsummary.log if it already exists so it's always created new. Fixed verbs to align to Pshell best practices.
+ 	2023-12-18 Fixed testing for empty values
 
 COPYRIGHT
 	Copyright (c) Microsoft Corporation 2023. All rights reserved.
@@ -101,7 +102,7 @@ function Get-UserDowntimeStartDateTime() {
 
 	$FinalizeCriticalBoundaryStartTime = (Get-Content $Log | Select-String -Pattern $FinalizeCriticalBoundaryText | Select-Object -Last 1).Line.Split("|")[3]
 
-    if ($FinalizeCriticalBoundaryStartTime -eq "" -or $null -eq $FinalizeCriticalBoundarySTartTime) {
+    if ($FinalizeCriticalBoundaryStartTime -eq "" -or $FinalizeCriticalBoundarySTartTime -eq $null) {
         # Need to exit now, a bad value was returned
         exit 1
     }
@@ -135,7 +136,7 @@ function Get-UserDowntimeStopDatetime() {
 
 	$StartSuspendedServicesEndTime = (Get-Content $Log | Select-String -Pattern $StartSuspendedServicesText | Select-Object -Last 2).Line.Split("|")[4]
 
-    if ($StartSuspendedServicesEndTime -eq "" -or $null -eq $StartSuspendedServicesEndTime) {
+    if ($StartSuspendedServicesEndTime -eq "" -or $StartSuspendedServicesEndTime -eq $null) {
         # Need to exit now, a bad value was returned
         Exit 1
     }
@@ -167,7 +168,7 @@ function Get-SourceOSVersion() {
 
 	$SourceWindowsOSVersion = (Get-Content $Log | Select-String -Pattern $SourceWindowsOSVersionText).Line.Split("=")[1].Split("[")[1].Split("]")[0]
 
-    if ($SourceWindowsOSVersion -eq "" -or $null -eq $SourceWindowsOSVersion) {
+    if ($SourceWindowsOSVersion -eq "" -or $SourceWindowsOSVersion -eq $null) {
         # Need to exit now, a bad value was returned
         Exit 1
     }
@@ -196,7 +197,7 @@ if ($PSBoundParameters.ContainsKey('Interactive')) {
 
 # Set script version as a variable
 
-$ScriptVersion = "1.0.1"
+$ScriptVersion = "1.0.2"
 
 # Verify script is running on Windows 11 before proceeding
 
